@@ -26,8 +26,8 @@ opt.cursorline = true
 
 -- appearance
 opt.termguicolors = true
---opt.background = "dark"
-opt.signcolumn = "yes:1"
+opt.background = "dark"
+opt.signcolumn = "yes"
 opt.colorcolumn = "80"
 
 -- Scroll behaviour
