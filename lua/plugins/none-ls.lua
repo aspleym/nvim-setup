@@ -18,9 +18,12 @@ return {
 				"stylua", -- lua formatter
 				"black", -- python formatter
 				"pylint", -- python linter
-				"eslint_d", -- js linter
 			},
 		})
+
+		-- pylint venv
+		local venv_path =
+			'import sys; sys.path.append("/Users/aspleym/miniforge3/lib/python3.10/site-packages"); import pylint_venv; pylint_venv.inithook(force_venv_activation=True, quiet=True)'
 
 		-- for conciseness
 		local formatting = null_ls.builtins.formatting -- to setup formatters
@@ -39,11 +42,9 @@ return {
 				formatting.stylua,
 				formatting.isort,
 				formatting.black,
-				diagnostics.pylint,
-				diagnostics.eslint_d.with({ -- js/ts linter
-					condition = function(utils)
-						return utils.root_has_file({ ".eslintrc.js", ".eslintrc.cjs", ".eslintrc.json" }) -- only enable if root has .eslintrc.js or .eslintrc.cjs
-					end,
+				diagnostics.pylint.with({
+					-- configure venv
+					extra_args = { "--init-hook", venv_path },
 				}),
 			},
 			-- configure format on save

@@ -16,6 +16,7 @@ keymap.set("n", "<leader>sv", "<C-w>v")
 keymap.set("n", "<leader>sh", "<C-w>s")
 keymap.set("n", "<leader>se", "<C-w>=")
 keymap.set("n", "<leader>sx", ":close<CR>")
+keymap.set("n", "<leader>sq", ":enew<bar>bd #<CR>")
 
 -- tab management
 keymap.set("n", "<leader>to", ":tabnew<CR>")
@@ -48,3 +49,8 @@ keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
 keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
 keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
 keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
+
+-- Private
+keymap.set("n", "<C-.>", vim.cmd.bnext)
+keymap.set("n", "<C-,>", vim.cmd.bprev)
+keymap.set("n", "<leader>bb", vim.cmd.bdelete)
