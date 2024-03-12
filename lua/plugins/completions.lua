@@ -17,6 +17,7 @@ return {
 			"saadparwaiz1/cmp_luasnip",
 			"rafamadriz/friendly-snippets",
 			"onsails/lspkind.nvim",
+			"zbirenbaum/copilot.lua",
 		},
 	},
 	{
@@ -25,6 +26,13 @@ return {
 			local cmp = require("cmp")
 			local luasnip = require("luasnip")
 			local lspkind = require("lspkind")
+
+			local has_words_before = function()
+				local cursor = vim.api.nvim_win_get_cursor(0)
+				return (vim.api.nvim_buf_get_lines(0, cursor[1] - 1, cursor[1], true)[1] or "")
+					:sub(cursor[2], cursor[2])
+					:match("%s")
+			end
 
 			require("luasnip.loaders.from_vscode").lazy_load()
 
@@ -41,10 +49,32 @@ return {
 				-- 	completion = cmp.config.window.bordered(),
 				-- 	documentation = cmp.config.window.bordered(),
 				-- },
+
 				mapping = cmp.mapping.preset.insert({
 					["<C-Space>"] = cmp.mapping.complete(),
 					["<C-e>"] = cmp.mapping.abort(),
 					["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+					["<Tab>"] = cmp.mapping(function(fallback)
+						if cmp.visible() then
+							cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
+						elseif has_words_before() then
+							cmp.complete()
+						else
+							fallback()
+						end
+					end, {
+						"i",
+						"s",
+					}),
+					["<S-Tab>"] = cmp.mapping(function(fallback)
+						if cmp.visible() then
+							cmp.select_prev_item()
+						elseif luasnip.jumpable(-1) then
+							luasnip.jump(-1)
+						else
+							fallback()
+						end
+					end, { "i", "s" }),
 				}),
 				sources = cmp.config.sources({
 					{ name = "nvim_lsp" },

@@ -14,10 +14,12 @@ return {
 
 		mason_null_ls.setup({
 			ensure_installed = {
-				"prettier", -- prettier formatter
+				"prettierd", -- prettier formatter
 				"stylua", -- lua formatter
 				"black", -- python formatter
 				"pylint", -- python linter
+				"goimports", -- go formatter
+				"gofumpt", -- go formatter
 			},
 		})
 
@@ -38,7 +40,7 @@ return {
 			root_dir = null_ls_utils.root_pattern(".null-ls-root", "Makefile", ".git", "package.json"),
 			-- setup formatters & linters
 			sources = {
-				formatting.prettier,
+				formatting.prettierd,
 				formatting.stylua,
 				formatting.isort,
 				formatting.black,
@@ -46,6 +48,13 @@ return {
 					-- configure venv
 					extra_args = { "--init-hook", venv_path },
 				}),
+				formatting.goimports,
+				formatting.gofumpt,
+				-- diagnostics.eslint_d.with({ -- js/ts linter
+				-- 	condition = function(utils)
+				-- 		return utils.root_has_file({ ".eslintrc.js", ".eslintrc.cjs", ".eslintrc.json" }) -- only enable if root has .eslintrc.js or .eslintrc.cjs
+				-- 	end,
+				-- }),
 			},
 			-- configure format on save
 			on_attach = function(current_client, bufnr)

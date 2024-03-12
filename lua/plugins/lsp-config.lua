@@ -90,6 +90,18 @@ return {
 			on_attach = on_attach,
 		})
 
+		-- configure golang server
+		lspconfig["gopls"].setup({
+			capabilities = capabilities,
+			on_attach = on_attach,
+		})
+
+		-- configure eslint server
+		lspconfig["eslint"].setup({
+			capabilities = capabilities,
+			on_attach = on_attach,
+		})
+
 		-- -- configure svelte server
 		-- lspconfig["svelte"].setup({
 		-- 	capabilities = capabilities,
