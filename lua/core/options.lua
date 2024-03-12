@@ -28,7 +28,7 @@ opt.cursorline = true
 opt.termguicolors = true
 opt.background = "dark"
 opt.signcolumn = "yes"
-opt.colorcolumn = "80"
+--opt.colorcolumn = "80"
 
 -- Scroll behaviour
 opt.scrolloff = 8
@@ -37,7 +37,7 @@ opt.scrolloff = 8
 --opt.backspace = "indent,eol,start"
 
 -- clipboard
---opt.clipboard:append("unnamedplus")
+opt.clipboard:append("unnamedplus")
 
 -- split windows
 opt.splitright = true
@@ -54,3 +54,4 @@ opt.undofile = true
 -- Etc
 opt.updatetime = 50
 opt.isfname:append("@-@")
+opt.completeopt = "menu,menuone,noselect"
